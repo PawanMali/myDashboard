@@ -53,7 +53,8 @@ app.use(flash());
 app.use(function(req,res, next){
   res.locals.sucess_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('er');
+  res.locals.error = req.flash('error');
+  next();
 });
 
 
@@ -169,14 +170,28 @@ app.put('/ideas/:id',(req,res)=> {
 
 app.delete('/ideas/:id', (req,res)=> {
  // res.send('DELETE');
- Idea.remove({_id:req.params.id})
+ Idea.remove({_id: req.params.id})
  .then(()=> {
    req.flash('success_msg', ' Idea removed ');
    res.redirect('/ideas');
  });
 });
 
+ 
+//User Login Route 
+app.get('/users/login',( req,res)=> {
+  res.send('login');
+});
+
+
+//User Register Route 
+app.get('/users/login',( req,res)=> {
+  res.send('register');
+});
+
 const port = 5000; 
+
+
 
 app.listen(port,()=> {
  // console.log(` Server started on port ${port}`);
